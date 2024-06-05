@@ -13,9 +13,14 @@ class SkuService {
     return res
   }
 
-  // TODO: SEARCH BY field (%LIKE%)
-  async findByField() {
-    const res = await models.Sku.findAll()
+  async findByField(search) {
+    const res = await models.Sku.findAll({
+      where: {
+        marca_detalle: {
+          [Op.like]: `%${search}%`,
+        },
+      }
+    });
     return res
   }
 

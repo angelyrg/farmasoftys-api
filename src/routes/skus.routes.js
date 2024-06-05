@@ -3,7 +3,9 @@ const router = express.Router();
 
 router
   .get("/", (req, res) => {
-    res.send("Get all SKUs");
+    res.json({
+      data: "Get all SKUs",
+    });
   })
 
   .get("/verify", (req, res) => {
