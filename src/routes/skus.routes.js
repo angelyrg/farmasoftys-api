@@ -3,10 +3,8 @@ const router = express.Router()
 
 const skuController = require('./../controllers/sku.controller')
 
-router
-    .get('/', skuController.get)
-    .post('/', skuController.create)
-    .get('/:id', skuController.getById)
+router.get('/', skuController.get).post('/', skuController.create)
+// .get('/:id', skuController.getById)
 
 // .get("/verify", (req, res) => {
 //   const { status } = req.query;

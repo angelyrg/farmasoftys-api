@@ -13,9 +13,26 @@ const create = async (req, res) => {
 const get = async (req, res) => {
     try {
         const response = await service.find()
-        res.json(response)
+        const data = response
+        const resp = {
+            resp: {
+                status: true,
+                code: 200,
+                message: 'Success',
+                data: data,
+            },
+        }
+        res.json(resp)
     } catch (error) {
-        res.status(500).send({ success: false, message: error.message })
+        const resp = {
+            resp: {
+                status: false,
+                code: 500,
+                message: error.message,
+            },
+        }
+
+        res.status(500).json(resp)
     }
 }
 
