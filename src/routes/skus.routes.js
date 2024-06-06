@@ -1,21 +1,21 @@
-const express = require("express");
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
+
+const skuController = require('./../controllers/sku.controller')
 
 router
-  .get("/", (req, res) => {
-    res.json({
-      data: "Get all SKUs",
-    });
-  })
+    .get('/', skuController.get)
+    .post('/', skuController.create)
+    .get('/:id', skuController.getById)
 
-  .get("/verify", (req, res) => {
-    const { status } = req.query
-    res.send(`Get SKUs by status. Params (status): ${status}`);
-  })
+// .get("/verify", (req, res) => {
+//   const { status } = req.query;
+//   res.send(`Get SKUs by status. Params (status): ${status}`);
+// })
 
-  .get("/search", (req, res) => {
-    const { search, category } = req.query
-    res.send(`Get SKUs by category. Search ${search}, filter ${category}`);
-  });
+// .get("/search", (req, res) => {
+//   const { search, category } = req.query;
+//   res.send(`Get SKUs by category. Search ${search}, filter ${category}`);
+// });
 
 module.exports = router

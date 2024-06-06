@@ -8,7 +8,6 @@ const app = express()
 const routerApi = require('./routes/index')
 routerApi(app)
 
-
-app.listen(port, ()=>{
+app.listen(port, () => {
     console.log(`Server listening in http://localhost:${port}`)
 })
