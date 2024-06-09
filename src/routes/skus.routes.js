@@ -3,13 +3,15 @@ const router = express.Router()
 
 const skuController = require('./../controllers/sku.controller')
 
-router.get('/', skuController.get).post('/', skuController.create)
-// .get('/:id', skuController.getById)
+router
+    .get('/', skuController.get)
+    .post('/', skuController.create)
+    .get('/:id', skuController.getById)
 
-// .get("/verify", (req, res) => {
-//   const { status } = req.query;
-//   res.send(`Get SKUs by status. Params (status): ${status}`);
-// })
+    .get("/verify", (req, res) => {
+        const { status } = req.query;
+        res.send(`Get SKUs by status. Params (status): ${status}`);
+    })
 
 // .get("/search", (req, res) => {
 //   const { search, category } = req.query;
