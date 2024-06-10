@@ -8,10 +8,12 @@ router
     .post('/', skuController.create)
     .get('/:id', skuController.getById)
 
-    .get("/verify", (req, res) => {
-        const { status } = req.query;
-        res.send(`Get SKUs by status. Params (status): ${status}`);
+    .get('/verify', (req, res) => {
+        const { status } = req.query
+        res.send(`Get SKUs by status. Params (status): ${status}`)
     })
+
+    .put('/:id', skuController.update)
 
 // .get("/search", (req, res) => {
 //   const { search, category } = req.query;

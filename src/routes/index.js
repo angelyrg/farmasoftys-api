@@ -12,7 +12,7 @@ function routerApi(app) {
 
     router.use('/sku', skusRouter)
     router.use('/boletas', boletasRouter)
-    router.use('/store', companiesRouter)
+    router.use('/company', companiesRouter)
     router.use('/popup', popupsRouter)
     router.use('/users', usersRouter)
 }
