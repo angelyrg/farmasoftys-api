@@ -46,6 +46,20 @@ const getById = async (req, res) => {
     }
 }
 
+const getByOAuth = async (req, res) => {
+    try {
+        const { oauth, code } = req.query
+
+        const oauth_code = oauth ? `${oauth}|${code}` : code
+
+        const response = await service.findByOAuth(oauth_code)
+
+        res.json(response)
+    } catch (error) {
+        res.status(500).send({ success: false, message: error.message })
+    }
+}
+
 const update = async (req, res) => {
     try {
         const { id } = req.params
@@ -71,6 +85,7 @@ module.exports = {
     create,
     get,
     getById,
+    getByOAuth,
     update,
     _delete,
 }

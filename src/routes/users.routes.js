@@ -5,8 +5,9 @@ const userController = require('../controllers/user.controller')
 
 router
     .get('/', userController.get)
+    .get('/oauth0', userController.getByOAuth)
     .get('/:id', userController.getById)
-    .post('/', userController.create)
+    .post('/register', userController.create)
     .put('/:id', userController.update)
     .delete('/:id', userController._delete)
 

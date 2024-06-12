@@ -13,6 +13,19 @@ class UserService {
         return res
     }
 
+    async findByOAuth(oauth) {
+        const user = await models.User.findOne({
+            where: { id_oauth: oauth },
+            include: [
+                {
+                    model: models.Company,
+                    attributes: ['company_name', 'company_adress', 'ruc'],
+                },
+            ],
+        })
+        return user
+    }
+
     async create(data) {
         const res = await models.User.create(data)
         return res

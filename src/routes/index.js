@@ -14,7 +14,7 @@ function routerApi(app) {
     router.use('/boletas', boletasRouter)
     router.use('/company', companiesRouter)
     router.use('/popup', popupsRouter)
-    router.use('/users', usersRouter)
+    router.use('/user', usersRouter)
 }
 
 module.exports = routerApi

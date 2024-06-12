@@ -9,6 +9,10 @@ class User extends Model {
             timestamps: true,
         }
     }
+
+    static associate(models) {
+        User.belongsTo(models.Company, { foreignKey: 'ruc' })
+    }
 }
 
 const UserSchema = {
@@ -33,7 +37,7 @@ const UserSchema = {
         allowNull: true,
     },
     ruc: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
     },
     id_rol: {
         type: DataTypes.INTEGER,

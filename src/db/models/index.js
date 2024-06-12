@@ -10,6 +10,9 @@ function setupModels(sequelize) {
     Company.init(CompanySchema, Company.config(sequelize))
     User.init(UserSchema, User.config(sequelize))
     Popup.init(PopupSchema, Popup.config(sequelize))
+
+    Company.associate(sequelize.models)
+    User.associate(sequelize.models)
 }
 
 module.exports = setupModels

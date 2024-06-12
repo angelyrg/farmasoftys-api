@@ -9,6 +9,10 @@ class Company extends Model {
             timestamps: true,
         }
     }
+
+    static associate(models) {
+        Company.hasMany(models.User, { foreignKey: 'ruc' })
+    }
 }
 
 const CompanySchema = {
