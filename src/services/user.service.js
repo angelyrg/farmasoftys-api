@@ -19,6 +19,7 @@ class UserService {
             include: [
                 {
                     model: models.Company,
+                    as: 'company',
                     attributes: ['company_name', 'company_adress', 'ruc'],
                 },
             ],

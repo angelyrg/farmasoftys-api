@@ -1,4 +1,4 @@
-const { models } = require('../libs/sequelize')
+const { models, sequelize } = require('../libs/sequelize')
 
 class CompanyService {
     constructor() {}
@@ -10,6 +10,28 @@ class CompanyService {
 
     async findOne(id) {
         const res = await models.Company.findByPk(id)
+        return res
+    }
+
+    async findByRuc(ruc) {
+        const res = await models.Company.findOne({
+            where: { ruc },
+            attributes: [
+                'img_company',
+                'company_name',
+                'ruc',
+                'company_adress',
+                'company_phone',
+                [
+                    sequelize.literal("CASE WHEN status = '1' THEN 'Activo' ELSE 'Inactivo' END"),
+                    'Estado',
+                ],
+                [
+                    sequelize.literal("DATE_FORMAT(createdAt, '%d/%m/%Y')"),
+                    'Fecha',
+                ],
+            ],
+        })
         return res
     }
 

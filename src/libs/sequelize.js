@@ -16,4 +16,4 @@ const sequelize = new Sequelize(
 sequelize.sync()
 setupModels(sequelize)
 
-module.exports = sequelize
+module.exports = { sequelize, models: sequelize.models }

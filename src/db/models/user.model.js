@@ -11,11 +11,19 @@ class User extends Model {
     }
 
     static associate(models) {
-        User.belongsTo(models.Company, { foreignKey: 'ruc' })
+        User.belongsTo(models.Company, {
+            foreignKey: 'ruc',
+            as: 'company',
+        })
     }
 }
 
 const UserSchema = {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+    },
     id_oauth: {
         type: DataTypes.STRING,
     },
@@ -38,6 +46,10 @@ const UserSchema = {
     },
     ruc: {
         type: DataTypes.STRING,
+        references: {
+            model: 'company',
+            key: 'ruc',
+        },
     },
     id_rol: {
         type: DataTypes.INTEGER,

@@ -47,6 +47,16 @@ const getById = async (req, res) => {
     }
 }
 
+const getByRuc = async (req, res) => {
+    try {
+        const { ruc } = req.query
+        const response = await service.findByRuc(ruc)
+        res.json(response)
+    } catch (error) {
+        res.status(500).send({ success: false, message: error.message })
+    }
+}
+
 const update = async (req, res) => {
     try {
         const { id } = req.params
@@ -72,6 +82,7 @@ module.exports = {
     create,
     get,
     getById,
+    getByRuc,
     update,
     _delete,
 }

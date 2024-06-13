@@ -11,11 +11,19 @@ class Company extends Model {
     }
 
     static associate(models) {
-        Company.hasMany(models.User, { foreignKey: 'ruc' })
+        Company.hasMany(models.User, {
+            foreignKey: 'ruc',
+            as: 'users',
+        })
     }
 }
 
 const CompanySchema = {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+    },
     company_name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -36,6 +44,11 @@ const CompanySchema = {
     },
     id_company_category: {
         type: DataTypes.INTEGER,
+    },
+    status: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: '1',
     },
 }
 
