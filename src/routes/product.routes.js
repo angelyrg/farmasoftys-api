@@ -6,6 +6,7 @@ const productController = require('../controllers/product.controller')
 router
     .get('/', productController.get)
     .post('/', productController.create)
+    .get('/search', productController.getByField)
     .get('/:id', productController.getById)
     .get('/verify', (req, res) => {
         const { status } = req.query

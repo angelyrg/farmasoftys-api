@@ -13,12 +13,13 @@ class ProductService {
         return res
     }
 
-    async findByField(search) {
+    async findByField(marca_detalle, sector_general) {
         const res = await models.Product.findAll({
             where: {
-                marca_detalle: {
-                    [Op.like]: `%${search}%`,
-                },
+                [Op.and]: [
+                    { marca_detalle: { [Op.like]: `%${marca_detalle}%` } },
+                    { sector_general: { [Op.like]: `%${sector_general}%` } },
+                ],
             },
         })
         return res

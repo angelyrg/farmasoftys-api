@@ -46,6 +46,16 @@ const getById = async (req, res) => {
     }
 }
 
+const getByField = async (req, res) => {
+    try {
+        const { marca_detalle, category } = req.query
+        const response = await service.findByField(marca_detalle, category)
+        res.json(response)
+    } catch (error) {
+        res.status(500).send({ success: false, message: error.message })
+    }
+}
+
 const update = async (req, res) => {
     try {
         const { id } = req.params
@@ -71,6 +81,7 @@ module.exports = {
     create,
     get,
     getById,
+    getByField,
     update,
     _delete,
 }
