@@ -1,5 +1,5 @@
-const SkuService = require('./../services/sku.service')
-const service = new SkuService()
+const ProductService = require('../services/product.service')
+const service = new ProductService()
 
 const create = async (req, res) => {
     try {

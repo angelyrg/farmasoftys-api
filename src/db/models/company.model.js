@@ -4,7 +4,7 @@ class Company extends Model {
     static config(sequelize) {
         return {
             sequelize,
-            tableName: 'company',
+            tableName: 'companies',
             modelName: 'Company',
             timestamps: true,
         }
@@ -12,7 +12,7 @@ class Company extends Model {
 
     static associate(models) {
         Company.hasMany(models.User, {
-            foreignKey: 'ruc',
+            foreignKey: 'company_id',
             as: 'users',
         })
     }

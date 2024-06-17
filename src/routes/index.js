@@ -1,6 +1,6 @@
 const express = require('express')
 
-const skusRouter = require('./skus.routes')
+const productRouter = require('./product.routes')
 const boletasRouter = require('./boletas.routes')
 const companiesRouter = require('./companies.routes')
 const popupsRouter = require('./popups.routes')
@@ -10,7 +10,7 @@ function routerApi(app) {
     const router = express.Router()
     app.use('/api', router)
 
-    router.use('/sku', skusRouter)
+    router.use('/sku', productRouter)
     router.use('/boletas', boletasRouter)
     router.use('/store', companiesRouter)
     router.use('/popup', popupsRouter)

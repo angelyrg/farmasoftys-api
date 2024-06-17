@@ -1,20 +1,20 @@
-const { models } = require('./../libs/sequelize')
+const { models } = require('../libs/sequelize')
 
-class SkuService {
+class ProductService {
     constructor() {}
 
     async find() {
-        const res = await models.Sku.findAll()
+        const res = await models.Product.findAll()
         return res
     }
 
     async findOne(id) {
-        const res = await models.Sku.findByPk(id)
+        const res = await models.Product.findByPk(id)
         return res
     }
 
     async findByField(search) {
-        const res = await models.Sku.findAll({
+        const res = await models.Product.findAll({
             where: {
                 marca_detalle: {
                     [Op.like]: `%${search}%`,
@@ -25,7 +25,7 @@ class SkuService {
     }
 
     async create(data) {
-        const res = await models.Sku.create(data)
+        const res = await models.Product.create(data)
         return res
     }
 
@@ -42,4 +42,4 @@ class SkuService {
     }
 }
 
-module.exports = SkuService
+module.exports = ProductService

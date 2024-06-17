@@ -13,7 +13,7 @@ const sequelize = new Sequelize(
     },
 )
 
-sequelize.sync()
+sequelize.sync({ force: true })
 setupModels(sequelize)
 
 module.exports = { sequelize, models: sequelize.models }

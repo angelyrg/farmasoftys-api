@@ -1,17 +1,26 @@
 const { Model, DataTypes } = require('sequelize')
 
-class Sku extends Model {
+class Product extends Model {
     static config(sequelize) {
         return {
             sequelize,
-            tableName: 'sku',
-            modelName: 'Sku',
+            tableName: 'products',
+            modelName: 'Product',
             timestamps: true,
         }
     }
+
+    static associate(models) {
+        this.belongsToMany(models.Boleta, {
+            through: models.BoletaProduct,
+            foreignKey: 'product_id',
+            otherKey: 'boleta_id',
+            as: 'boletas',
+        })
+    }
 }
 
-const SkuSchema = {
+const ProductSchema = {
     id: {
         allowNull: false,
         autoIncrement: true,
@@ -33,6 +42,11 @@ const SkuSchema = {
         type: DataTypes.STRING,
         field: 'marca_detalle',
     },
+    status: {
+        type: DataTypes.TINYINT,
+        defaultValue: 1,
+        field: 'status',
+    },
     imagen_sku: {
         allowNull: false,
         type: DataTypes.STRING,
@@ -40,4 +54,4 @@ const SkuSchema = {
     },
 }
 
-module.exports = { Sku, SkuSchema }
+module.exports = { Product, ProductSchema }
