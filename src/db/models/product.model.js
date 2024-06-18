@@ -17,6 +17,11 @@ class Product extends Model {
             otherKey: 'boleta_id',
             as: 'boletas',
         })
+
+        this.belongsTo(models.Category, {
+            foreignKey: 'category_id',
+            as: 'category',
+        })
     }
 }
 
@@ -26,6 +31,13 @@ const ProductSchema = {
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER,
+    },
+    category_id: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'categories',
+            key: 'id',
+        },
     },
     sector_general: {
         allowNull: false,

@@ -23,7 +23,9 @@ class CompanyService {
                 'company_adress',
                 'company_phone',
                 [
-                    sequelize.literal("CASE WHEN status = '1' THEN 'Activo' ELSE 'Inactivo' END"),
+                    sequelize.literal(
+                        "CASE WHEN status = '1' THEN 'Activo' ELSE 'Inactivo' END",
+                    ),
                     'Estado',
                 ],
                 [

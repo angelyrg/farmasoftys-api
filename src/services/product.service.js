@@ -1,3 +1,4 @@
+const { Op } = require('sequelize')
 const { models } = require('../libs/sequelize')
 
 class ProductService {
@@ -13,13 +14,20 @@ class ProductService {
         return res
     }
 
-    async findByField(marca_detalle, sector_general) {
+    async findByField(sector_general, marca_detalle) {
+        const whereClause = {}
+
+        if (marca_detalle) {
+            whereClause.marca_detalle = { [Op.like]: `%${marca_detalle}%` }
+        }
+
+        if (sector_general) {
+            whereClause.sector_general = { [Op.like]: `%${sector_general}%` }
+        }
+
         const res = await models.Product.findAll({
             where: {
-                [Op.and]: [
-                    { marca_detalle: { [Op.like]: `%${marca_detalle}%` } },
-                    { sector_general: { [Op.like]: `%${sector_general}%` } },
-                ],
+                [Op.and]: [whereClause],
             },
         })
         return res
