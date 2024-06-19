@@ -1,20 +1,27 @@
 const { models } = require('../libs/sequelize')
+const groupBy = require('../utils/groupBy')
 
-class PopupService {
+class NewsService {
     constructor() {}
 
     async find() {
-        const res = await models.Popup.findAll()
+        const res = await models.News.findAll()
         return res
     }
 
+    async findByNewsType() {
+        const news = await this.find()
+        const groupedNews = groupBy(news, 'news_type')
+        return groupedNews
+    }
+
     async findOne(id) {
-        const res = await models.Popup.findByPk(id)
+        const res = await models.News.findByPk(id)
         return res
     }
 
     async create(data) {
-        const res = await models.Popup.create(data)
+        const res = await models.News.create(data)
         return res
     }
 
@@ -31,4 +38,4 @@ class PopupService {
     }
 }
 
-module.exports = PopupService
+module.exports = NewsService

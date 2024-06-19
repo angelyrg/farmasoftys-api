@@ -1,6 +1,6 @@
-const PopupService = require('../services/popup.service')
+const NewsService = require('../services/news.service')
 
-const service = new PopupService()
+const service = new NewsService()
 
 const create = async (req, res) => {
     try {
@@ -46,6 +46,15 @@ const getById = async (req, res) => {
     }
 }
 
+const getByNewsType = async (req, res) => {
+    try {
+        const response = await service.findByNewsType()
+        res.json(response)
+    } catch (error) {
+        res.status(500).send({ success: false, message: error.message })
+    }
+}
+
 const update = async (req, res) => {
     try {
         const { id } = req.params
@@ -71,6 +80,7 @@ module.exports = {
     create,
     get,
     getById,
+    getByNewsType,
     update,
     _delete,
 }
