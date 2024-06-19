@@ -32,6 +32,10 @@ const BoletaProductSchema = {
             key: 'id',
         },
     },
+    cantidad: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+    },
 }
 
 module.exports = { BoletaProduct, BoletaProductSchema }

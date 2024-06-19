@@ -47,6 +47,31 @@ const getById = async (req, res) => {
     }
 }
 
+const getTotalCantidad = async (req, res) => {
+    try {
+        const { id_usuario } = req.query
+        const total = await service.findTotalCantidad(id_usuario)
+        res.json({ success: true, data: { total } })
+    } catch (error) {
+        res.status(500).send({ success: false, message: error.message })
+    }
+}
+
+const getHistorial = async (req, res) => {
+    try {
+        const { id_usuario, month, year, order } = req.query
+        const response = await service.findHistorial({
+            userId: id_usuario,
+            month,
+            year,
+            order,
+        })
+        res.json(response)
+    } catch (error) {
+        res.status(500).send({ success: false, message: error.message })
+    }
+}
+
 const update = async (req, res) => {
     try {
         const { id } = req.params
@@ -72,6 +97,8 @@ module.exports = {
     create,
     get,
     getById,
+    getTotalCantidad,
+    getHistorial,
     update,
     _delete,
 }
