@@ -24,6 +24,11 @@ const CategorySchema = {
         type: DataTypes.STRING,
         field: 'description',
     },
+    category_image: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        field: 'category_image',
+    },
 }
 
 module.exports = { Category, CategorySchema }

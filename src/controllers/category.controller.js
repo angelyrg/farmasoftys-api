@@ -14,26 +14,30 @@ const create = async (req, res) => {
 const get = async (req, res) => {
     try {
         const response = await service.find()
-        const data = response
-        const resp = {
-            resp: {
-                status: true,
-                code: 200,
-                message: 'Success',
-                data: data,
-            },
-        }
-        res.json(resp)
-    } catch (error) {
-        const resp = {
-            resp: {
-                status: false,
-                code: 500,
-                message: error.message,
-            },
+
+        if (!response || response.length === 0) {
+            return res.status(404).json({
+                resp: {
+                    status: false,
+                    code: 404,
+                    message: 'No se encontraron datos',
+                },
+            })
         }
 
-        res.status(500).json(resp)
+        return res.status(200).json({
+            success: true,
+            code: 200,
+            message: 'Registros obtenidos',
+            data: response,
+        })
+    } catch (error) {
+        console.error('Error al obtener datos:', error)
+        return res.status(500).json({
+            success: false,
+            code: 500,
+            message: 'Error interno del servidor. Intente más tarde.',
+        })
     }
 }
 

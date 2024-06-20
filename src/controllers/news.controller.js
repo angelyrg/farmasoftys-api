@@ -49,9 +49,28 @@ const getById = async (req, res) => {
 const getByNewsType = async (req, res) => {
     try {
         const response = await service.findByNewsType()
-        res.json(response)
+
+        if (!response || response.length === 0) {
+            return res.status(404).json({
+                success: false,
+                code: 404,
+                message: 'No se encontraron registros',
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            code: 200,
+            message: 'Registros encontrados con éxito',
+            data: response,
+        })
     } catch (error) {
-        res.status(500).send({ success: false, message: error.message })
+        console.error('Error al obtener noticias por tipo:', error)
+        return res.status(500).json({
+            success: false,
+            code: 500,
+            message: 'Error interno del servidor. Intente más tarde.',
+        })
     }
 }
 

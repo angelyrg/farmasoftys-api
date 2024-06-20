@@ -11,6 +11,9 @@ class NewsService {
 
     async findByNewsType() {
         const news = await this.find()
+        if (!news || news.length === 0) {
+            return null
+        }
         const groupedNews = groupBy(news, 'news_type')
         return groupedNews
     }

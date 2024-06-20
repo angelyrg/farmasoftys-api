@@ -1,13 +1,24 @@
 const UserService = require('../services/user.service')
+const { validateCreate } = require('../middlewares/user.middleware')
 
 const service = new UserService()
 
 const create = async (req, res) => {
     try {
         const response = await service.create(req.body)
-        res.json({ success: true, data: response })
+        return res.status(201).json({
+            success: true,
+            code: 201,
+            message: 'Usuario creado exitosamente',
+            data: response,
+        })
     } catch (error) {
-        res.status(500).send({ success: false, message: error.message })
+        console.error('Error al crear el usuario:', error)
+        return res.status(500).json({
+            success: false,
+            code: 500,
+            message: 'Error interno del servidor. Intente más tarde.',
+        })
     }
 }
 
@@ -49,14 +60,31 @@ const getById = async (req, res) => {
 const getByOAuth = async (req, res) => {
     try {
         const { oauth, code } = req.query
-
         const oauth_code = oauth ? `${oauth}|${code}` : code
 
         const response = await service.findByOAuth(oauth_code)
 
-        res.json(response)
+        if (!response) {
+            return res.status(404).json({
+                success: false,
+                code: 404,
+                message: 'No se encontró el usuario',
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            code: 200,
+            message: 'Usuario encontrado con éxito',
+            data: response,
+        })
     } catch (error) {
-        res.status(500).send({ success: false, message: error.message })
+        console.error('Error al buscar usuario por OAuth:', error)
+        return res.status(500).json({
+            success: false,
+            code: 500,
+            message: 'Error interno del servidor. Intente más tarde.',
+        })
     }
 }
 

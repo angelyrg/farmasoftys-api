@@ -2,14 +2,18 @@ const express = require('express')
 const router = express.Router()
 
 const boletaController = require('./../controllers/boleta.controller')
+const {
+    validateCreateBoleta,
+    validateUserIDParam,
+} = require('../middlewares/boleta.middleware')
 
 router
     .get('/', boletaController.get)
     .get('/user', boletaController.getHistorial)
-    .get('/comisiones', boletaController.getTotalCantidad)
-    .get('/historial', boletaController.getHistorial)
+    .get('/historial', validateUserIDParam, boletaController.getHistorial)
+    .get('/comisiones', validateUserIDParam, boletaController.getTotalCantidad)
     .get('/:id', boletaController.getById)
-    .post('/', boletaController.create)
+    .post('/', validateCreateBoleta, boletaController.create)
     .put('/:id', boletaController.update)
     .delete('/:id', boletaController._delete)
 

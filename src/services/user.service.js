@@ -24,7 +24,28 @@ class UserService {
                 },
             ],
         })
-        return user
+
+        if (!user) {
+            return null
+        }
+
+        const userData = user.toJSON()
+
+        const result = {
+            id: userData.id,
+            id_oauth: userData.id_oauth,
+            fullname: userData.fullname,
+            phone: userData.phone,
+            email: userData.email,
+            clave: userData.clave,
+            img_profile: userData.img_profile,
+            id_rol: userData.id_rol,
+            status: userData.status,
+            company_name: userData.company.company_name,
+            company_adress: userData.company.company_adress,
+            ruc: userData.company.ruc,
+        }
+        return result
     }
 
     async create(data) {

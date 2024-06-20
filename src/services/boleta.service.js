@@ -28,7 +28,7 @@ class BoletaService {
                 where: { user_id: userId },
             },
         )
-        return total || 0
+        return total
     }
 
     async findHistorial({ userId, month, year, order }) {
