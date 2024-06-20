@@ -8,6 +8,9 @@ const config = {
     dbName: process.env.DB_DATABASE,
     dbPort: process.env.DB_PORT,
     dbDialect: process.env.DB_DIALECT,
+    cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME,
+    cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,
+    cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET,
 }
 
 module.exports = { config }
