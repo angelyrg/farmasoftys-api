@@ -69,7 +69,7 @@ const getByNewsType = async (req, res) => {
         return res.status(500).json({
             success: false,
             code: 500,
-            message: 'Error interno del servidor. Intente más tarde.',
+            message: 'Ha ocurrido un error en el servidor. Intente más tarde.',
         })
     }
 }

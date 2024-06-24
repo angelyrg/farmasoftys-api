@@ -2,12 +2,21 @@ const { check, query, validationResult } = require('express-validator')
 const { User } = require('../models/user.model')
 
 const validateCreateUser = [
-    check('id_oauth').notEmpty().withMessage('id_oauth es obligatorio'),
+    check('id_oauth')
+        .notEmpty()
+        .withMessage('id_oauth es obligatorio')
+        .custom(async (value) => {
+            const user = await User.findOne({ where: { id_oauth: value } })
+            if (user) {
+                return Promise.reject('El id_oauth ya se encuentra registrado')
+            }
+        }),
     check('fullname').notEmpty().withMessage('fullname es obligatorio'),
     check('phone')
         .notEmpty()
+        .withMessage('phone es obligatorio')
         .isNumeric()
-        .withMessage('phone es obligatorio y debe ser numérico'),
+        .withMessage('phone debe ser numérico'),
     check('email')
         .notEmpty()
         .withMessage('El campo email es obligatorio')
@@ -19,7 +28,7 @@ const validateCreateUser = [
                 return Promise.reject('El email ya está registrado')
             }
         }),
-    check('clave').notEmpty().withMessage('clave es obligatoria'),
+    // check('clave').notEmpty().withMessage('clave es obligatoria'),
     // check('img_profile').notEmpty().isURL().withMessage('img_profile es obligatoria y debe ser una URL válida'),
     check('ruc')
         .notEmpty()

@@ -5,35 +5,47 @@ const service = new CompanyService()
 const create = async (req, res) => {
     try {
         const response = await service.create(req.body)
-        res.json({ success: true, data: response })
+        return res.status(201).json({
+            success: true,
+            code: 201,
+            message: 'Tienda creada exitosamente',
+            data: response,
+        })
     } catch (error) {
-        res.status(500).send({ success: false, message: error.message })
+        console.error('Error al crear la tienda:', error)
+        return res.status(500).json({
+            success: false,
+            code: 500,
+            message: 'Ha ocurrido un error en el servidor. Intente más tarde.',
+        })
     }
 }
 
 const get = async (req, res) => {
     try {
         const response = await service.find()
-        const data = response
-        const resp = {
-            resp: {
-                status: true,
-                code: 200,
-                message: 'Success',
-                data: data,
-            },
-        }
-        res.json(resp)
-    } catch (error) {
-        const resp = {
-            resp: {
-                status: false,
-                code: 500,
-                message: error.message,
-            },
+
+        if (!response) {
+            return res.status(404).json({
+                success: false,
+                code: 404,
+                message: 'No se encontraron tiendas',
+            })
         }
 
-        res.status(500).json(resp)
+        return res.status(200).json({
+            success: true,
+            code: 200,
+            message: 'Success',
+            data: response,
+        })
+    } catch (error) {
+        console.error('Error al obtener tiendas.', error)
+        return res.status(500).json({
+            success: false,
+            code: 500,
+            message: 'Ha ocurrido un error en el servidor. Intente más tarde.',
+        })
     }
 }
 
@@ -41,9 +53,28 @@ const getById = async (req, res) => {
     try {
         const { id } = req.params
         const response = await service.findOne(id)
-        res.json(response)
+
+        if (!response) {
+            return res.status(404).json({
+                success: false,
+                code: 404,
+                message: 'No se encontró la tienda',
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            code: 200,
+            message: 'Success',
+            data: response,
+        })
     } catch (error) {
-        res.status(500).send({ success: false, message: error.message })
+        console.error('Error al obtener tienda por id:', error)
+        return res.status(500).json({
+            success: false,
+            code: 500,
+            message: 'Ha ocurrido un error en el servidor. Intente más tarde.',
+        })
     }
 }
 
@@ -56,22 +87,22 @@ const getByRuc = async (req, res) => {
             return res.status(404).json({
                 success: false,
                 code: 404,
-                message: 'No se encontró la empresa con el RUC proporcionado',
+                message: 'No se encontró la tienda con el RUC proporcionado',
             })
         }
 
         return res.status(200).json({
             success: true,
             code: 200,
-            message: 'Empresa encontrada con éxito',
+            message: 'Success',
             data: response,
         })
     } catch (error) {
-        console.error('Error al buscar la empresa por RUC:', error)
+        console.error('Error al obtener la tienda por RUC:', error)
         return res.status(500).json({
             success: false,
             code: 500,
-            message: 'Error interno del servidor. Intente más tarde.',
+            message: 'Ha ocurrido un error en el servidor. Intente más tarde.',
         })
     }
 }
@@ -81,9 +112,20 @@ const update = async (req, res) => {
         const { id } = req.params
         const body = req.body
         const response = await service.update(id, body)
-        res.json(response)
+
+        return res.status(200).json({
+            success: true,
+            code: 200,
+            message: 'Tienda actualizada exitosamente',
+            data: response,
+        })
     } catch (error) {
-        res.status(500).send({ success: false, message: error.message })
+        console.error('Error al actualizar la tienda:', error)
+        return res.status(500).json({
+            success: false,
+            code: 500,
+            message: 'Ha ocurrido un error en el servidor. Intente más tarde.',
+        })
     }
 }
 
@@ -91,9 +133,28 @@ const _delete = async (req, res) => {
     try {
         const { id } = req.params
         const response = await service.delete(id)
-        res.json(response)
+
+        if (!response) {
+            return res.status(404).json({
+                success: false,
+                code: 404,
+                message: 'Tienda no encontrada',
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            code: 200,
+            message: 'Tienda eliminada exitosamente',
+            data: response,
+        })
     } catch (error) {
-        res.status(500).send({ success: false, message: error.message })
+        console.error('Error al eliminar la tienda:', error)
+        return res.status(500).json({
+            success: false,
+            code: 500,
+            message: 'Ha ocurrido un error en el servidor. Intente más tarde.',
+        })
     }
 }
 
