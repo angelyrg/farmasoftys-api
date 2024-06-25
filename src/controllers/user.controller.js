@@ -25,7 +25,7 @@ const get = async (req, res) => {
     try {
         const response = await service.find()
 
-        if (!response) {
+        if (!response || response.length === 0) {
             return res.status(404).json({
                 success: false,
                 code: 404,

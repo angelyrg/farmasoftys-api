@@ -5,9 +5,19 @@ const service = new CategoryService()
 const create = async (req, res) => {
     try {
         const response = await service.create(req.body)
-        res.json({ success: true, data: response })
+        return res.status(201).json({
+            success: true,
+            code: 201,
+            message: 'Usuario creado exitosamente',
+            data: response,
+        })
     } catch (error) {
-        res.status(500).send({ success: false, message: error.message })
+        console.error('Error al crear la categoría:', error)
+        return res.status(500).json({
+            success: false,
+            code: 500,
+            message: 'Ha ocurrido un error en el servidor. Intente más tarde.',
+        })
     }
 }
 
@@ -17,11 +27,9 @@ const get = async (req, res) => {
 
         if (!response || response.length === 0) {
             return res.status(404).json({
-                resp: {
-                    status: false,
-                    code: 404,
-                    message: 'No se encontraron datos',
-                },
+                success: false,
+                code: 404,
+                message: 'No se encontraron categorías',
             })
         }
 
@@ -45,9 +53,28 @@ const getById = async (req, res) => {
     try {
         const { id } = req.params
         const response = await service.findOne(id)
-        res.json(response)
+
+        if (!response) {
+            return res.status(404).json({
+                success: false,
+                code: 404,
+                message: 'No se encontró categoría',
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            code: 200,
+            message: 'Success',
+            data: response,
+        })
     } catch (error) {
-        res.status(500).send({ success: false, message: error.message })
+        console.error('Error al obtener categoría por id:', error)
+        return res.status(500).json({
+            success: false,
+            code: 500,
+            message: 'Ha ocurrido un error en el servidor. Intente más tarde.',
+        })
     }
 }
 
@@ -56,9 +83,20 @@ const update = async (req, res) => {
         const { id } = req.params
         const body = req.body
         const response = await service.update(id, body)
-        res.json(response)
+
+        return res.status(200).json({
+            success: true,
+            code: 200,
+            message: 'Categoría actualizado exitosamente',
+            data: response,
+        })
     } catch (error) {
-        res.status(500).send({ success: false, message: error.message })
+        console.error('Error al actualizar boleta:', error)
+        return res.status(500).json({
+            success: false,
+            code: 500,
+            message: 'Ha ocurrido un error en el servidor. Intente más tarde.',
+        })
     }
 }
 
@@ -66,9 +104,27 @@ const _delete = async (req, res) => {
     try {
         const { id } = req.params
         const response = await service.delete(id)
-        res.json(response)
+        if (!response) {
+            return res.status(404).json({
+                success: false,
+                code: 404,
+                message: 'Categoría no encontrado',
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            code: 200,
+            message: 'Categoría eliminado exitosamente',
+            data: response,
+        })
     } catch (error) {
-        res.status(500).send({ success: false, message: error.message })
+        console.error('Error al eliminar categoría:', error)
+        return res.status(500).json({
+            success: false,
+            code: 500,
+            message: 'Ha ocurrido un error en el servidor. Intente más tarde.',
+        })
     }
 }
 

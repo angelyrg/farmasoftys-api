@@ -36,8 +36,11 @@ class NewsService {
 
     async delete(id) {
         const model = await this.findOne(id)
-        await model.destroy()
-        return { deleted: true }
+        if (!model) {
+            return null
+        }
+        const res = await model.destroy()
+        return res
     }
 }
 

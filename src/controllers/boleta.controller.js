@@ -33,26 +33,28 @@ const create = async (req, res) => {
 const get = async (req, res) => {
     try {
         const response = await service.find()
-        const data = response
-        const resp = {
-            resp: {
-                status: true,
-                code: 200,
-                message: 'Success',
-                data: data,
-            },
-        }
-        res.json(resp)
-    } catch (error) {
-        const resp = {
-            resp: {
-                status: false,
-                code: 500,
-                message: error.message,
-            },
+
+        if (!response) {
+            return res.status(404).json({
+                success: false,
+                code: 404,
+                message: 'No se encontraron boletas',
+            })
         }
 
-        res.status(500).json(resp)
+        return res.status(200).json({
+            success: true,
+            code: 200,
+            message: 'Success',
+            data: response,
+        })
+    } catch (error) {
+        console.error('Error al obtener boletas.', error)
+        return res.status(500).json({
+            success: false,
+            code: 500,
+            message: 'Ha ocurrido un error en el servidor. Intente más tarde.',
+        })
     }
 }
 
@@ -60,9 +62,28 @@ const getById = async (req, res) => {
     try {
         const { id } = req.params
         const response = await service.findOne(id)
-        res.json(response)
+
+        if (!response) {
+            return res.status(404).json({
+                success: false,
+                code: 404,
+                message: 'No se encontró la boleta',
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            code: 200,
+            message: 'Success',
+            data: response,
+        })
     } catch (error) {
-        res.status(500).send({ success: false, message: error.message })
+        console.error('Error al obtener la boleta', error)
+        return res.status(500).json({
+            success: false,
+            code: 500,
+            message: 'Ha ocurrido un error en el servidor. Intente más tarde.',
+        })
     }
 }
 
@@ -82,7 +103,7 @@ const getTotalCantidad = async (req, res) => {
         return res.status(200).json({
             success: true,
             code: 200,
-            message: 'Total obtenido con éxito',
+            message: 'Success',
             data: { total },
         })
     } catch (error) {
@@ -97,9 +118,9 @@ const getTotalCantidad = async (req, res) => {
 
 const getHistorial = async (req, res) => {
     try {
-        const { id_usuario, month, year, order } = req.query
+        const { user_id, month, year, order } = req.query
         const response = await service.findHistorial({
-            userId: id_usuario,
+            userId: user_id,
             month,
             year,
             order,
@@ -135,9 +156,20 @@ const update = async (req, res) => {
         const { id } = req.params
         const body = req.body
         const response = await service.update(id, body)
-        res.json(response)
+
+        return res.status(200).json({
+            success: true,
+            code: 200,
+            message: 'Boleta actualizado exitosamente',
+            data: response,
+        })
     } catch (error) {
-        res.status(500).send({ success: false, message: error.message })
+        console.error('Error al actualizar el usuario:', error)
+        return res.status(500).json({
+            success: false,
+            code: 500,
+            message: 'Ha ocurrido un error en el servidor. Intente más tarde.',
+        })
     }
 }
 
@@ -145,9 +177,28 @@ const _delete = async (req, res) => {
     try {
         const { id } = req.params
         const response = await service.delete(id)
-        res.json(response)
+
+        if (!response) {
+            return res.status(404).json({
+                success: false,
+                code: 404,
+                message: 'Boleta no encontrado',
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            code: 200,
+            message: 'Boleta eliminado exitosamente',
+            data: response,
+        })
     } catch (error) {
-        res.status(500).send({ success: false, message: error.message })
+        console.error('Error al eliminar el usuario:', error)
+        return res.status(500).json({
+            success: false,
+            code: 500,
+            message: 'Ha ocurrido un error en el servidor. Intente más tarde.',
+        })
     }
 }
 

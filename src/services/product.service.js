@@ -14,15 +14,15 @@ class ProductService {
         return res
     }
 
-    async findByField(sector_general, marca_detalle) {
+    async findByField(search, category_id) {
         const whereClause = {}
 
-        if (marca_detalle) {
-            whereClause.marca_detalle = { [Op.like]: `%${marca_detalle}%` }
+        if (category_id) {
+            whereClause.category_id = { [Op.like]: `${category_id}` }
         }
 
-        if (sector_general) {
-            whereClause.sector_general = { [Op.like]: `%${sector_general}%` }
+        if (search) {
+            whereClause.sector_general = { [Op.like]: `%${search}%` }
         }
 
         const res = await models.Product.findAll({
@@ -46,8 +46,11 @@ class ProductService {
 
     async delete(id) {
         const model = await this.findOne(id)
-        await model.destroy()
-        return { deleted: true }
+        if (!model) {
+            return null
+        }
+        const res = await model.destroy()
+        return res
     }
 }
 

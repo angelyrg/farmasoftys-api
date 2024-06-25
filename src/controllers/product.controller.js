@@ -24,7 +24,7 @@ const get = async (req, res) => {
     try {
         const response = await service.find()
 
-        if (!response) {
+        if (!response || response.length === 0) {
             return res.status(404).json({
                 success: false,
                 code: 404,
@@ -77,10 +77,10 @@ const getById = async (req, res) => {
     }
 }
 
-const getByField = async (req, res) => {
+const getBySearching = async (req, res) => {
     try {
-        const { marca_detalle, category } = req.query
-        const response = await service.findByField(marca_detalle, category)
+        const { search, category_id } = req.query
+        const response = await service.findByField(search, category_id)
 
         if (!response || response.length === 0) {
             return res.status(404).json({
@@ -98,7 +98,7 @@ const getByField = async (req, res) => {
             data: response,
         })
     } catch (error) {
-        console.error('Error al buscar datos por campo:', error)
+        console.error('Error al buscar producto:', error)
         return res.status(500).json({
             success: false,
             code: 500,
@@ -112,9 +112,19 @@ const update = async (req, res) => {
         const { id } = req.params
         const body = req.body
         const response = await service.update(id, body)
-        res.json(response)
+        return res.status(200).json({
+            success: true,
+            code: 200,
+            message: 'Producto actualizado exitosamente',
+            data: response,
+        })
     } catch (error) {
-        res.status(500).send({ success: false, message: error.message })
+        console.error('Error al actualizar el producto:', error)
+        return res.status(500).json({
+            success: false,
+            code: 500,
+            message: 'Ha ocurrido un error en el servidor. Intente más tarde.',
+        })
     }
 }
 
@@ -122,9 +132,28 @@ const _delete = async (req, res) => {
     try {
         const { id } = req.params
         const response = await service.delete(id)
-        res.json(response)
+
+        if (!response) {
+            return res.status(404).json({
+                success: false,
+                code: 404,
+                message: 'Producto no encontrado',
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            code: 200,
+            message: 'Producto eliminado exitosamente',
+            data: response,
+        })
     } catch (error) {
-        res.status(500).send({ success: false, message: error.message })
+        console.error('Error al eliminar el producto:', error)
+        return res.status(500).json({
+            success: false,
+            code: 500,
+            message: 'Ha ocurrido un error en el servidor. Intente más tarde.',
+        })
     }
 }
 
@@ -132,7 +161,7 @@ module.exports = {
     create,
     get,
     getById,
-    getByField,
+    getBySearching,
     update,
     _delete,
 }

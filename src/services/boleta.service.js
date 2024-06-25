@@ -15,6 +15,7 @@ class BoletaService {
     }
 
     async findTotalCantidad(userId) {
+        // TODO: Calcular el total multiplicando los productos con sus precios
         const total = await models.Boleta.sum(
             'products.BoletaProduct.cantidad',
             {
@@ -111,8 +112,11 @@ class BoletaService {
 
     async delete(id) {
         const model = await this.findOne(id)
-        await model.destroy()
-        return { deleted: true }
+        if (!model) {
+            return null
+        }
+        const res = await model.destroy()
+        return res
     }
 }
 
