@@ -1,23 +1,30 @@
 const { query, validationResult, check } = require('express-validator')
-const { Company } = require('../models/company.model')
+const { Tienda } = require('../models/tienda.model')
 
-const validateCreateCompany = [
+const validateCreateTienda = [
+    check('name').notEmpty().withMessage('El campo "name" es obligatorio'),
     check('ruc')
         .notEmpty()
-        .withMessage('ruc es obligatorio')
+        .withMessage('El campo "ruc" es obligatorio')
         .custom(async (value) => {
-            const user = await Company.findOne({ where: { ruc: value } })
+            const user = await Tienda.findOne({ where: { ruc: value } })
             if (user) {
                 return Promise.reject('El ruc ya se encuentra registrado')
             }
         }),
-    check('company_adress')
+    check('address')
         .notEmpty()
-        .withMessage('company_adress es obligatorio'),
-    check('company_name').notEmpty().withMessage('company_name es obligatorio'),
-    check('company_phone')
+        .withMessage('El campo "address" es obligatorio'),
+    check('latitude')
         .notEmpty()
-        .withMessage('company_phone es obligatorio'),
+        .withMessage('El campo "latitude" es obligatorio')
+        .isFloat({ min: -90, max: 90 })
+        .withMessage('La latitud debe estar entre -90 y 90 grados'),
+    check('longitude')
+        .notEmpty()
+        .withMessage('El campo "longitude" es obligatorio')
+        .isFloat({ min: -180, max: 180 })
+        .withMessage('La longitud debe estar entre -180 y 180 grados'),
 
     (req, res, next) => {
         const errors = validationResult(req)
@@ -50,4 +57,4 @@ const validateRUCParams = [
     },
 ]
 
-module.exports = { validateCreateCompany, validateRUCParams }
+module.exports = { validateCreateTienda, validateRUCParams }

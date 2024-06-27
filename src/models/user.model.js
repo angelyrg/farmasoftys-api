@@ -11,9 +11,9 @@ class User extends Model {
     }
 
     static associate(models) {
-        User.belongsTo(models.Company, {
-            foreignKey: 'company_id',
-            as: 'company',
+        User.belongsTo(models.Tienda, {
+            foreignKey: 'tienda_id',
+            as: 'tienda',
         })
     }
 }
@@ -47,10 +47,10 @@ const UserSchema = {
     ruc: {
         type: DataTypes.STRING,
     },
-    company_id: {
+    tienda_id: {
         type: DataTypes.INTEGER,
         references: {
-            model: 'companies',
+            model: 'tiendas',
             key: 'id',
         },
     },

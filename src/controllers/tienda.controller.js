@@ -1,6 +1,6 @@
-const CompanyService = require('../services/company.service')
+const TiendaService = require('../services/tienda.service')
 
-const service = new CompanyService()
+const service = new TiendaService()
 
 const create = async (req, res) => {
     try {
@@ -25,7 +25,7 @@ const get = async (req, res) => {
     try {
         const response = await service.find()
 
-        if (!response) {
+        if (!response || response.length === 0) {
             return res.status(404).json({
                 success: false,
                 code: 404,
