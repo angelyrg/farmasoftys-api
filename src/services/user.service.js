@@ -18,9 +18,9 @@ class UserService {
             where: { id_oauth: oauth },
             include: [
                 {
-                    model: models.Company,
-                    as: 'company',
-                    attributes: ['company_name', 'company_adress', 'ruc'],
+                    model: models.Tienda,
+                    as: 'tienda',
+                    attributes: ['name', 'address', 'ruc'],
                 },
             ],
         })
@@ -41,9 +41,9 @@ class UserService {
             img_profile: userData.img_profile,
             id_rol: userData.id_rol,
             status: userData.status,
-            company_name: userData.company.company_name,
-            company_adress: userData.company.company_adress,
-            ruc: userData.company.ruc,
+            company_name: userData.tienda.name,
+            company_address: userData.tienda.address,
+            ruc: userData.tienda.ruc,
         }
         return result
     }
