@@ -8,7 +8,7 @@ const create = async (req, res) => {
         return res.status(201).json({
             success: true,
             code: 201,
-            message: 'Usuario creado exitosamente',
+            message: 'Categoría creado exitosamente',
             data: response,
         })
     } catch (error) {
