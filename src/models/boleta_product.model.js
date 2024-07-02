@@ -20,17 +20,23 @@ const BoletaProductSchema = {
     },
     boleta_id: {
         type: DataTypes.INTEGER,
+        allowNull: false,
         references: {
             model: 'boletas',
             key: 'id',
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
     },
     product_id: {
         type: DataTypes.INTEGER,
+        allowNull: false,
         references: {
             model: 'products',
             key: 'id',
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
     },
     cantidad: {
         allowNull: false,
