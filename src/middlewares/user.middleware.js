@@ -11,12 +11,12 @@ const validateCreateUser = [
                 return Promise.reject('El id_oauth ya se encuentra registrado')
             }
         }),
-    check('fullname').notEmpty().withMessage('fullname es obligatorio'),
+    check('fullname').notEmpty().withMessage('El campo fullname es obligatorio'),
     check('phone')
         .notEmpty()
-        .withMessage('phone es obligatorio')
+        .withMessage('El campo phone es obligatorio')
         .isNumeric()
-        .withMessage('phone debe ser numérico'),
+        .withMessage('El valor de phone debe ser numérico'),
     check('email')
         .notEmpty()
         .withMessage('El campo email es obligatorio')

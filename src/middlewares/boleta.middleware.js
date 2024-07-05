@@ -24,11 +24,11 @@ const validateCreateBoleta = [
 ]
 
 const validateUserIDParam = [
-    check('id_usuario')
+    check('user_id')
         .notEmpty()
-        .withMessage('El campo "id_usuario" es obligatorio')
+        .withMessage('El campo "user_id" es obligatorio')
         .isNumeric()
-        .withMessage('El campo "id_usuario" debe ser numérico'),
+        .withMessage('El campo "user_id" debe ser numérico'),
     (req, res, next) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {

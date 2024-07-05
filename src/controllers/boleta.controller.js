@@ -120,7 +120,7 @@ const getHistorial = async (req, res) => {
     try {
         const { user_id, month, year, order } = req.query
         const response = await service.findHistorial({
-            userId: user_id,
+            user_id,
             month,
             year,
             order,
@@ -131,7 +131,7 @@ const getHistorial = async (req, res) => {
                 success: false,
                 code: 404,
                 message:
-                    'No se encontró historial para el usuario proporcionado',
+                    'No se encontró historial con los parámetros proporcionados',
             })
         }
 

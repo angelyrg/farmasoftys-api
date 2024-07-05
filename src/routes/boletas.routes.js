@@ -9,7 +9,7 @@ const {
 
 router
     .get('/', boletaController.get)
-    .get('/user', boletaController.getHistorial)
+    .get('/user', validateUserIDParam, boletaController.getHistorial)
     .get('/historial', validateUserIDParam, boletaController.getHistorial)
     .get('/comisiones', validateUserIDParam, boletaController.getTotalCantidad)
     .get('/:id', boletaController.getById)

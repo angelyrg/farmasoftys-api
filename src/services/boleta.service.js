@@ -14,7 +14,7 @@ class BoletaService {
         return res
     }
 
-    async findTotalCantidad(userId) {
+    async findTotalCantidad(user_id) {
         // TODO: Calcular el total multiplicando los productos con sus precios
         const total = await models.Boleta.sum(
             'products.BoletaProduct.cantidad',
@@ -26,15 +26,15 @@ class BoletaService {
                         through: { attributes: [] },
                     },
                 ],
-                where: { user_id: userId },
+                where: { user_id: user_id },
             },
         )
         return total
     }
 
-    async findHistorial({ userId, month, year, order }) {
+    async findHistorial({ user_id, month, year, order }) {
         let where = {
-            user_id: userId,
+            user_id: user_id,
         }
 
         if (month) {

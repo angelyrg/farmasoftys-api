@@ -31,7 +31,7 @@ const UserSchema = {
         type: DataTypes.STRING,
     },
     phone: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING(12),
     },
     email: {
         type: DataTypes.STRING,
