@@ -13,7 +13,7 @@ const uploadImageController = async (req, res) => {
             })
         }
 
-        const folder = 'softys/products'
+        const folder = 'softys'
         const result = await service.upload(req.file.path, folder)
 
         // Después de subir la imagen a Cloudinary, eliminar el archivo temporal
