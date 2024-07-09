@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize')
 
 const { config } = require('./../config/config')
-const setupModels = require('../models')
+const setupModels = require('../models_new')
 
 const sequelize = new Sequelize(
     config.dbName,
@@ -10,6 +10,7 @@ const sequelize = new Sequelize(
     {
         host: config.dbHost,
         dialect: config.dbDialect,
+        port: config.dbPort,
     },
 )
 

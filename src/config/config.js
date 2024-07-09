@@ -10,4 +10,31 @@ const config = {
     dbDialect: process.env.DB_DIALECT,
 }
 
-module.exports = { config }
+const sequelizeConfig = {
+    development: {
+        username: config.dbUser,
+        password: config.dbPassword,
+        database: config.dbName,
+        host: config.dbHost,
+        port: config.dbPort,
+        dialect: config.dbDialect,
+    },
+    test: {
+        username: config.dbUser,
+        password: config.dbPassword,
+        database: config.dbName,
+        host: config.dbHost,
+        port: config.dbPort,
+        dialect: config.dbDialect,
+    },
+    production: {
+        username: config.dbUser,
+        password: config.dbPassword,
+        database: config.dbName,
+        host: config.dbHost,
+        port: config.dbPort,
+        dialect: config.dbDialect,
+    },
+}
+
+module.exports = { config, sequelizeConfig }
