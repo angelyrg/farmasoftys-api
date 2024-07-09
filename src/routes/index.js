@@ -6,6 +6,7 @@ const boletasRouter = require('./boletas.routes')
 const tiendasRouter = require('./tiendas.routes')
 const usersRouter = require('./users.routes')
 const newsRouter = require('./news.routes')
+const popupRouter = require('./popup.routes')
 const uploadsRouter = require('./uploads.routes')
 
 function routerApi(app) {
@@ -18,6 +19,7 @@ function routerApi(app) {
     router.use('/sku', productRouter)
     router.use('/boleta', boletasRouter)
     router.use('/novedades', newsRouter)
+    router.use('/popup', popupRouter)
 
     router.use('/cloudinary', uploadsRouter)
 }

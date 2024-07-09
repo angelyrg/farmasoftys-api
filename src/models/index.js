@@ -5,6 +5,7 @@ const { Product, ProductSchema } = require('./product.model')
 const { BoletaProduct, BoletaProductSchema } = require('./boleta_product.model')
 const { Category, CategorySchema } = require('./category.model')
 const { News, NewsSchema } = require('./news.model')
+const { Popup, PopupSchema } = require('./popup.model')
 
 function setupModels(sequelize) {
     Tienda.init(TiendaSchema, Tienda.config(sequelize))
@@ -14,6 +15,7 @@ function setupModels(sequelize) {
     Boleta.init(BoletaSchema, Boleta.config(sequelize))
     BoletaProduct.init(BoletaProductSchema, BoletaProduct.config(sequelize))
     News.init(NewsSchema, News.config(sequelize))
+    Popup.init(PopupSchema, Popup.config(sequelize))
 
     Tienda.associate(sequelize.models)
     User.associate(sequelize.models)

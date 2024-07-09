@@ -43,7 +43,10 @@ class BoletaService {
                 [Op.and]: [
                     ...(where[Op.and] || []),
                     Sequelize.where(
-                        Sequelize.fn('MONTH', Sequelize.col('createdAt')),
+                        Sequelize.fn(
+                            'MONTH',
+                            Sequelize.col('Boleta.createdAt'),
+                        ),
                         month,
                     ),
                 ],
@@ -56,7 +59,7 @@ class BoletaService {
                 [Op.and]: [
                     ...(where[Op.and] || []),
                     Sequelize.where(
-                        Sequelize.fn('YEAR', Sequelize.col('createdAt')),
+                        Sequelize.fn('YEAR', Sequelize.col('Boleta.createdAt')),
                         year,
                     ),
                 ],
@@ -68,6 +71,15 @@ class BoletaService {
         const res = await models.Boleta.findAll({
             where,
             order: orderOption,
+            include: [
+                {
+                    model: models.Product,
+                    as: 'products',
+                    through: {
+                        attributes: [],
+                    },
+                },
+            ],
         })
 
         return res
