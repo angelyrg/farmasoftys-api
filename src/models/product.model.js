@@ -64,6 +64,11 @@ const ProductSchema = {
         type: DataTypes.STRING,
         field: 'imagen_sku',
     },
+    comision: {
+        allowNull: true,
+        type: DataTypes.FLOAT,
+        field: 'comision',
+    },
 }
 
 module.exports = { Product, ProductSchema }
