@@ -20,7 +20,7 @@ class UserService {
                 {
                     model: models.Tienda,
                     as: 'tienda',
-                    attributes: ['name', 'address', 'ruc'],
+                    attributes: ['name', 'address', 'ruc', 'tienda_img', 'phone', 'latitude', 'longitude', 'max_radius'],
                 },
             ],
         })
@@ -41,9 +41,14 @@ class UserService {
             img_profile: userData.img_profile,
             id_rol: userData.id_rol,
             status: userData.status,
-            company_name: userData.tienda.name,
-            company_address: userData.tienda.address,
-            ruc: userData.tienda.ruc,
+            tienda_name: userData.tienda.name,
+            tienda_address: userData.tienda.address,
+            tienda_ruc: userData.tienda.ruc,
+            tienda_img: userData.tienda.tienda_img,
+            tienda_phone: userData.tienda.phone,
+            tienda_latitude: userData.tienda.latitude,
+            tienda_longitude: userData.tienda.longitude,
+            tienda_max_radius: userData.tienda.max_radius,
         }
         return result
     }

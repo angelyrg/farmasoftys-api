@@ -53,18 +53,26 @@ const TiendaSchema = {
             max: 180,
         },
     },
+    max_radius: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+        defaultValue: 25,
+        validate: {
+            min: 0,
+        },
+    },
     tienda_img: {
         type: DataTypes.TEXT,
         allowNull: true,
     },
     phone: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING(12),
         allowNull: true,
     },
     status: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        defaultValue: '1',
+        defaultValue: 1,
     },
 }
 
