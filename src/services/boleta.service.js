@@ -14,22 +14,32 @@ class BoletaService {
         return res
     }
 
-    async findTotalCantidad(user_id) {
-        // TODO: Calcular el total multiplicando los productos con sus precios
-        const total = await models.Boleta.sum(
-            'products.BoletaProduct.cantidad',
-            {
-                include: [
-                    {
-                        model: models.Product,
-                        as: 'products',
-                        through: { attributes: [] },
+    async findTotalComision(user_id) {
+        const boletas = await models.Boleta.findAll({
+            where: { user_id: user_id },
+            include: [
+                {
+                    model: models.Product,
+                    as: 'products',
+                    through: {
+                        attributes: ['cantidad'],
                     },
-                ],
-                where: { user_id: user_id },
-            },
-        )
-        return total
+                    attributes: ['comision'],
+                },
+            ],
+        });
+    
+        let totalComision = 0;
+    
+        for (const boleta of boletas) {
+            for (const product of boleta.products) {
+                const cantidad = product.BoletaProduct.cantidad;
+                const comision = product.comision;
+                totalComision += cantidad * comision;
+            }
+        }
+    
+        return parseFloat(totalComision.toFixed(2));
     }
 
     async findHistorial({ user_id, month, year, order }) {
@@ -76,13 +86,34 @@ class BoletaService {
                     model: models.Product,
                     as: 'products',
                     through: {
-                        attributes: [],
+                        attributes: ['cantidad'],
                     },
                 },
             ],
         })
 
-        return res
+        if (!res) {
+            return null
+        }
+
+        const formattedBoletas = res.map(boleta => ({
+            id_boleta: boleta.id,
+            fecha_registro: new Date(boleta.createdAt).toLocaleString('es-PE', {
+                timeZone: 'UTC',
+            }),
+            img_boleta: boleta.img_boleta,
+            productos: boleta.products.map(product => ({
+                id_producto: product.id,
+                sector_general: product.sector_general,
+                sector_detallado: product.sector_detallado,
+                marca_detalle: product.marca_detalle,
+                imagen_sku: product.imagen_sku,
+                comision: parseFloat(product.comision),
+                cantidad: product.BoletaProduct.cantidad,
+            })),
+        }));
+    
+        return formattedBoletas;
     }
 
     async create(data) {

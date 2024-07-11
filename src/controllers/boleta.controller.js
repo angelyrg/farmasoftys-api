@@ -87,16 +87,16 @@ const getById = async (req, res) => {
     }
 }
 
-const getTotalCantidad = async (req, res) => {
+const getTotalComision = async (req, res) => {
     try {
-        const { id_usuario } = req.query
-        const total = await service.findTotalCantidad(id_usuario)
+        const { user_id } = req.query
+        const comision = await service.findTotalComision(user_id)
 
-        if (total === null || total === undefined) {
+        if (comision === null || comision === undefined) {
             return res.status(404).json({
                 success: false,
                 code: 404,
-                message: 'No se encontró total para el usuario proporcionado',
+                message: 'No se pudo obtener la comisión para el usuario proporcionado',
             })
         }
 
@@ -104,10 +104,10 @@ const getTotalCantidad = async (req, res) => {
             success: true,
             code: 200,
             message: 'Success',
-            data: { total },
+            data: { comision },
         })
     } catch (error) {
-        console.error('Error al obtener el total de cantidad:', error)
+        console.error('Error al obtener la comisión:', error)
         return res.status(500).json({
             success: false,
             code: 500,
@@ -206,7 +206,7 @@ module.exports = {
     create,
     get,
     getById,
-    getTotalCantidad,
+    getTotalComision,
     getHistorial,
     update,
     _delete,

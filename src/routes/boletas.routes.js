@@ -11,7 +11,7 @@ router
     .get('/', boletaController.get)
     .get('/user', validateUserIDParam, boletaController.getHistorial)
     .get('/historial', validateUserIDParam, boletaController.getHistorial)
-    .get('/comisiones', validateUserIDParam, boletaController.getTotalCantidad)
+    .get('/comisiones', validateUserIDParam, boletaController.getTotalComision)
     .get('/:id', boletaController.getById)
     .post('/', validateCreateBoleta, boletaController.create)
     .put('/:id', boletaController.update)

@@ -65,8 +65,9 @@ const ProductSchema = {
         field: 'imagen_sku',
     },
     comision: {
-        allowNull: true,
-        type: DataTypes.FLOAT,
+        allowNull: false,
+        type: DataTypes.DECIMAL(10, 2),
+        defaultValue: 0,
         field: 'comision',
     },
 }
