@@ -44,11 +44,9 @@ const UserSchema = {
         type: DataTypes.TEXT,
         allowNull: true,
     },
-    ruc: {
-        type: DataTypes.STRING,
-    },
     tienda_id: {
         type: DataTypes.INTEGER,
+        allowNull: false,
         references: {
             model: 'tiendas',
             key: 'id',

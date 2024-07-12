@@ -20,7 +20,16 @@ class UserService {
                 {
                     model: models.Tienda,
                     as: 'tienda',
-                    attributes: ['name', 'address', 'ruc', 'tienda_img', 'phone', 'latitude', 'longitude', 'max_radius'],
+                    attributes: [
+                        'name',
+                        'address',
+                        'ruc',
+                        'tienda_img',
+                        'phone',
+                        'latitude',
+                        'longitude',
+                        'max_radius',
+                    ],
                 },
             ],
         })
@@ -55,7 +64,11 @@ class UserService {
 
     async create(data) {
         const res = await models.User.create(data)
-        return res
+
+        const inserted_auth_code = res.id_oauth
+        const fullUserInfo = await this.findByOAuth(inserted_auth_code)
+
+        return fullUserInfo
     }
 
     async update(id, data) {

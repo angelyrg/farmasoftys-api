@@ -11,7 +11,9 @@ const validateCreateUser = [
                 return Promise.reject('El id_oauth ya se encuentra registrado')
             }
         }),
-    check('fullname').notEmpty().withMessage('El campo fullname es obligatorio'),
+    check('fullname')
+        .notEmpty()
+        .withMessage('El campo fullname es obligatorio'),
     check('phone')
         .notEmpty()
         .withMessage('El campo phone es obligatorio')
@@ -30,14 +32,12 @@ const validateCreateUser = [
         }),
     // check('clave').notEmpty().withMessage('clave es obligatoria'),
     // check('img_profile').notEmpty().isURL().withMessage('img_profile es obligatoria y debe ser una URL válida'),
-    check('ruc')
-        .notEmpty()
-        .withMessage('El RUC es obligatorio')
-        .isNumeric()
-        .withMessage('El RUC debe ser numérico')
-        .isLength({ min: 11, max: 11 })
-        .withMessage('El RUC debe tener exactamente 11 números'),
     // check('id_rol').notEmpty().isInt().withMessage('id_rol es obligatorio y debe ser un número entero'),
+    check('tienda_id')
+        .notEmpty()
+        .withMessage('tienda_id es obligatorio')
+        .isInt()
+        .withMessage('tienda_id debe ser un número entero positivo'),
 
     (req, res, next) => {
         const errors = validationResult(req)
