@@ -96,7 +96,8 @@ const getTotalComision = async (req, res) => {
             return res.status(404).json({
                 success: false,
                 code: 404,
-                message: 'No se pudo obtener la comisión para el usuario proporcionado',
+                message:
+                    'No se pudo obtener la comisión para el usuario proporcionado',
             })
         }
 
