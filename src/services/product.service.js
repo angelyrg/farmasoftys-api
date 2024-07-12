@@ -22,7 +22,7 @@ class ProductService {
         }
 
         if (search) {
-            whereClause.sector_general = { [Op.like]: `%${search}%` }
+            whereClause.marca_detalle = { [Op.like]: `%${search}%` }
         }
 
         const res = await models.Product.findAll({
