@@ -1,8 +1,6 @@
-const NewsService = require('../services/news.service')
 const NewsCategoryService = require('../services/news_category.service')
 
-const service = new NewsService()
-const newsCategoryService = new NewsCategoryService()
+const service = new NewsCategoryService()
 
 const create = async (req, res) => {
     try {
@@ -11,11 +9,11 @@ const create = async (req, res) => {
         return res.status(201).json({
             success: true,
             code: 201,
-            message: 'Novedad creado exitosamente',
+            message: 'Categoría de novedades creado exitosamente',
             data: response,
         })
     } catch (error) {
-        console.error('Error al crear novedades:', error)
+        console.error('Error al crear cateogoría:', error)
         return res.status(500).json({
             success: false,
             code: 500,
@@ -81,9 +79,9 @@ const getById = async (req, res) => {
     }
 }
 
-const getByNewsType = async (req, res) => {
+const getWithNews = async (req, res) => {
     try {
-        const response = await service.findByNewsType()
+        const response = await service.findWithNews()
 
         if (!response || response.length === 0) {
             return res.status(404).json({
@@ -118,11 +116,11 @@ const update = async (req, res) => {
         return res.status(200).json({
             success: true,
             code: 200,
-            message: 'Novedad actualizado exitosamente',
+            message: 'Categoría actualizado exitosamente',
             data: response,
         })
     } catch (error) {
-        console.error('Error al actualizar la novedad:', error)
+        console.error('Error al actualizar la categoría:', error)
         return res.status(500).json({
             success: false,
             code: 500,
@@ -140,18 +138,18 @@ const _delete = async (req, res) => {
             return res.status(404).json({
                 success: false,
                 code: 404,
-                message: 'Novedad no encontrado',
+                message: 'Cateogría no encontrado',
             })
         }
 
         return res.status(200).json({
             success: true,
             code: 200,
-            message: 'Novedad eliminado exitosamente',
+            message: 'Cateogía eliminado exitosamente',
             data: response,
         })
     } catch (error) {
-        console.error('Error al eliminar la novedad:', error)
+        console.error('Error al eliminar la categoría:', error)
         return res.status(500).json({
             success: false,
             code: 500,
@@ -164,7 +162,7 @@ module.exports = {
     create,
     get,
     getById,
-    getByNewsType,
+    getWithNews,
     update,
     _delete,
 }

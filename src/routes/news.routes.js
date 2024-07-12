@@ -5,7 +5,6 @@ const newsController = require('../controllers/news.controller')
 
 router
     .get('/', newsController.get)
-    .get('/grouped', newsController.getByNewsType)
     .get('/:id', newsController.getById)
     .post('/', newsController.create)
     .put('/:id', newsController.update)

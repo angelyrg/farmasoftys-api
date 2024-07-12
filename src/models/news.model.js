@@ -9,9 +9,28 @@ class News extends Model {
             timestamps: true,
         }
     }
+    static associate(models) {
+        this.belongsTo(models.NewsCategory, {
+            foreignKey: 'news_category_id',
+            as: 'category',
+        })
+    }
 }
 
 const NewsSchema = {
+    id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+    },
+    news_category_id: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'news_categories',
+            key: 'id',
+        },
+    },
     title: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -25,10 +44,6 @@ const NewsSchema = {
         allowNull: false,
     },
     link_type: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    news_type: {
         type: DataTypes.STRING,
         allowNull: false,
     },
