@@ -9,6 +9,7 @@ const newsRouter = require('./news.routes')
 const newsCategoryRouter = require('./news_category.routes')
 const popupRouter = require('./popup.routes')
 const uploadsRouter = require('./uploads.routes')
+const tiendasRegistroSolicitudesRouter = require('./tiendas_registro_solicitudes.routes')
 
 function routerApi(app) {
     const router = express.Router()
@@ -22,8 +23,9 @@ function routerApi(app) {
     router.use('/news', newsRouter)
     router.use('/novedades', newsCategoryRouter)
     router.use('/popup', popupRouter)
-
     router.use('/cloudinary', uploadsRouter)
+    router.use('/store-registration-requests', tiendasRegistroSolicitudesRouter)
+
 }
 
 module.exports = routerApi
