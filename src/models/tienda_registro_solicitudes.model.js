@@ -37,6 +37,10 @@ const TiendasRegistroSolicitudesSchema = {
         type: DataTypes.STRING(255),
         allowNull: false,
     },
+    ruc: {
+        type: DataTypes.STRING(20),
+        allowNull: false,
+    },
     status: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -44,4 +48,7 @@ const TiendasRegistroSolicitudesSchema = {
     },
 }
 
-module.exports = { TiendasRegistrosSolicitudes, TiendasRegistroSolicitudesSchema }
+module.exports = {
+    TiendasRegistrosSolicitudes,
+    TiendasRegistroSolicitudesSchema,
+}
