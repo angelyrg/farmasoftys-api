@@ -14,7 +14,11 @@ const validateCreateTiendaRegistroSolicitud = [
     check('email')
         .notEmpty()
         .withMessage('El correo electrónico es obligatorio'),
-
+    check('ruc')
+        .notEmpty()
+        .withMessage('El RUC es obligatorio')
+        .isLength({ max: 20 })
+        .withMessage('El RUC debe tener como máximo 20 caracteres'),
 
     (req, res, next) => {
         const errors = validationResult(req)
@@ -29,6 +33,5 @@ const validateCreateTiendaRegistroSolicitud = [
         next()
     },
 ]
-
 
 module.exports = { validateCreateTiendaRegistroSolicitud }
