@@ -13,7 +13,7 @@ const tiendasRegistroSolicitudesRouter = require('./tiendas_registro_solicitudes
 
 function routerApi(app) {
     const router = express.Router()
-    app.use('/api', router)
+    app.use('/v1', router)
 
     router.use('/store', tiendasRouter)
     router.use('/user', usersRouter)
