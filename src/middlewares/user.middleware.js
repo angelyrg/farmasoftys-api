@@ -42,6 +42,18 @@ const validateCreateUser = [
     (req, res, next) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
+
+            const errorArray = errors.array();
+            const specialError = errorArray.find(err => err.msg === 'El email ya está registrado');
+            if (specialError) {
+                return res.status(400).json({
+                    success: false,
+                    code: 400,
+                    message: 'El email ya está registrado',
+                    errors: errorArray.filter(err => err.msg !== 'El email ya está registrado'),
+                });
+            }
+
             return res.status(400).json({
                 success: false,
                 code: 400,
