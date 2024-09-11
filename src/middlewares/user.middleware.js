@@ -49,7 +49,7 @@ const validateCreateUser = [
                 return res.status(400).json({
                     success: false,
                     code: 400,
-                    message: 'El email ya está registrado',
+                    message: 'El email ingresado ya se encuentra registrado, por favor intente nuevamente.',
                     errors: errorArray.filter(err => err.msg !== 'El email ya está registrado'),
                 });
             }
