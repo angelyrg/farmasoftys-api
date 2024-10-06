@@ -7,6 +7,7 @@ class Product extends Model {
             tableName: 'products',
             modelName: 'Product',
             timestamps: true,
+            paranoid: true,
         }
     }
 

@@ -9,5 +9,6 @@ router
     .get('/search', productController.getBySearching)
     .get('/:id', productController.getById)
     .put('/:id', productController.update)
+    .delete('/:id', productController._delete)
 
 module.exports = router
