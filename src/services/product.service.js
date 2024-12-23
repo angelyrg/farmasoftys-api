@@ -52,6 +52,26 @@ class ProductService {
         const res = await model.destroy()
         return res
     }
+
+    async count(search=null, category_id=null) {
+        const whereClause = {}
+
+        if (category_id) {
+            whereClause.category_id = { [Op.like]: `${category_id}` }
+        }
+
+        if (search) {
+            whereClause.marca_detalle = { [Op.like]: `%${search}%` }
+        }
+
+        const count = await models.Product.count({
+            where: {
+                [Op.and]: [whereClause],
+            },
+        })
+
+        return count
+    }
 }
 
 module.exports = ProductService

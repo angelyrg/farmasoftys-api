@@ -197,6 +197,11 @@ class BoletaService {
         const res = await model.destroy()
         return res
     }
+
+    async count() {
+        const count = await models.Boleta.count()
+        return count
+    }
 }
 
 module.exports = BoletaService

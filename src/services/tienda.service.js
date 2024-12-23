@@ -55,6 +55,11 @@ class TiendaService {
         const res = await model.destroy()
         return res
     }
+
+    async count() {
+        const count = await models.Tienda.count()
+        return count
+    }
 }
 
 module.exports = TiendaService

@@ -85,6 +85,11 @@ class UserService {
         const res = await model.destroy()
         return res
     }
+
+    async count() {
+        const count = await models.User.count()
+        return count
+    }
 }
 
 module.exports = UserService
