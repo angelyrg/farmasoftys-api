@@ -5,7 +5,18 @@ class BoletaService {
     constructor() {}
 
     async find() {
-        const res = await models.Boleta.findAll()
+        const res = await models.Boleta.findAll({
+            include: [
+                {
+                    model: models.User,
+                    as: 'user',
+                },
+                {
+                    model: models.Product,
+                    as: 'products',
+                },
+            ],
+        })
         return res
     }
 
@@ -134,7 +145,7 @@ class BoletaService {
         const formattedBoletas = res.map((boleta) => ({
             id_boleta: boleta.id,
             fecha_registro: new Date(boleta.createdAt).toLocaleString('es-PE', {
-                timeZone: 'UTC',
+                timeZone: 'America/Lima',
             }),
             img_boleta: boleta.img_boleta,
             productos: boleta.products.map((product) => ({

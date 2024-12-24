@@ -25,6 +25,7 @@ function setupModels(sequelize) {
     User.associate(sequelize.models)
     Boleta.associate(sequelize.models)
     Product.associate(sequelize.models)
+    News.associate(sequelize.models)
     NewsCategory.associate(sequelize.models)
 }
 

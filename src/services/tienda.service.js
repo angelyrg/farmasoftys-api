@@ -60,6 +60,37 @@ class TiendaService {
         const count = await models.Tienda.count()
         return count
     }
+
+    async getBoletasByTienda() {
+        const res = await models.Tienda.findAll({
+            attributes: [
+                'name',
+                'ruc',
+                [
+                    sequelize.fn('COUNT', sequelize.col('users.boletas.id')),
+                    'boletas_count',
+                ],
+            ],
+            include: [
+                {
+                    model: models.User,
+                    as: 'users',
+                    attributes: [],
+                    include: [
+                        {
+                            model: models.Boleta,
+                            as: 'boletas',
+                            attributes: [],
+                        },
+                    ],
+                },
+            ],
+            group: ['Tienda.id'],
+            raw: true,
+        })
+        return res
+    }
+
 }
 
 module.exports = TiendaService

@@ -20,7 +20,7 @@ class Boleta extends Model {
 
         this.belongsTo(models.User, {
             foreignKey: 'user_id',
-            as: 'users',
+            as: 'user',
         })
     }
 }

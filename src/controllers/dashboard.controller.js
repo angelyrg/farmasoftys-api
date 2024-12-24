@@ -15,6 +15,8 @@ const getGeneral = async (req, res) => {
         const totalUser = await user_service.count()
         const totalTienda = await tienda_service.count()
 
+        const boletasPorTiendas = await tienda_service.getBoletasByTienda()
+
         return res.status(200).json({
             success: true,
             code: 200,
@@ -24,6 +26,7 @@ const getGeneral = async (req, res) => {
                 'boletas': totalBoleta ?? 0,
                 'users': totalUser ?? 0,
                 'tiendas': totalTienda ?? 0,
+                'boletas_por_tienda': boletasPorTiendas ?? []
             },
         })
     } catch (error) {

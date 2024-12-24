@@ -5,7 +5,14 @@ class NewsService {
     constructor() {}
 
     async find() {
-        const res = await models.News.findAll()
+        const res = await models.News.findAll({
+            include: [
+                {
+                    model: models.NewsCategory,
+                    as: 'category',
+                },
+            ],
+        })
         return res
     }
 
