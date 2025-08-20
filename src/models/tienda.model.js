@@ -39,7 +39,7 @@ const TiendaSchema = {
     },
     latitude: {
         type: DataTypes.FLOAT,
-        allowNull: false,
+        allowNull: true,
         validate: {
             min: -90,
             max: 90,
@@ -47,7 +47,7 @@ const TiendaSchema = {
     },
     longitude: {
         type: DataTypes.FLOAT,
-        allowNull: false,
+        allowNull: true,
         validate: {
             min: -180,
             max: 180,
@@ -55,7 +55,7 @@ const TiendaSchema = {
     },
     max_radius: {
         type: DataTypes.FLOAT,
-        allowNull: false,
+        allowNull: true,
         defaultValue: 25,
         validate: {
             min: 0,

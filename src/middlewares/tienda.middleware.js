@@ -16,13 +16,11 @@ const validateCreateTienda = [
         .notEmpty()
         .withMessage('El campo "address" es obligatorio'),
     check('latitude')
-        .notEmpty()
-        .withMessage('El campo "latitude" es obligatorio')
+        .optional({ checkFalsy: true })
         .isFloat({ min: -90, max: 90 })
         .withMessage('La latitud debe estar entre -90 y 90 grados'),
     check('longitude')
-        .notEmpty()
-        .withMessage('El campo "longitude" es obligatorio')
+        .optional({ checkFalsy: true })
         .isFloat({ min: -180, max: 180 })
         .withMessage('La longitud debe estar entre -180 y 180 grados'),
 
