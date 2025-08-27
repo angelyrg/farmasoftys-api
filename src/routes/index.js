@@ -11,6 +11,7 @@ const popupRouter = require('./popup.routes')
 const uploadsRouter = require('./uploads.routes')
 const tiendasRegistroSolicitudesRouter = require('./tiendas_registro_solicitudes.routes')
 const dashboardRouter = require('./dashboard.routes')
+const openIARouter = require('./openia.routes')
 
 function routerApi(app) {
     const router = express.Router()
@@ -27,6 +28,7 @@ function routerApi(app) {
     router.use('/cloudinary', uploadsRouter)
     router.use('/store-registration-requests', tiendasRegistroSolicitudesRouter)
     router.use('/dashboard', dashboardRouter)
+    router.use('/openia', openIARouter)
 
 }
 
