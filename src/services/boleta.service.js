@@ -40,8 +40,9 @@ class BoletaService {
         const formattedBoleta = {
             id_boleta: res.id,
             fecha_registro: new Date(res.createdAt).toLocaleString('es-PE', {
-                timeZone: 'UTC',
+                timeZone: 'America/Lima',
             }),
+            monto_total: parseFloat(res.comision_total),
             img_boleta: res.img_boleta,
             productos: res.products.map((product) => ({
                 id_producto: product.id,
@@ -60,6 +61,7 @@ class BoletaService {
         return formattedBoleta
     }
 
+    // TODO: Obtener desde la tabla "retiros", pendientes de retirar
     async findTotalComision(user_id) {
         const boletas = await models.Boleta.findAll({
             where: { user_id: user_id },
@@ -147,6 +149,7 @@ class BoletaService {
             fecha_registro: new Date(boleta.createdAt).toLocaleString('es-PE', {
                 timeZone: 'America/Lima',
             }),
+            monto_total: parseFloat(boleta.comision_total),
             img_boleta: boleta.img_boleta,
             productos: boleta.products.map((product) => ({
                 id_producto: product.id,

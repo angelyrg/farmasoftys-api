@@ -40,6 +40,20 @@ const BoletaSchema = {
             key: 'id',
         },
     },
+    retiro_id: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+        defaultValue: null,
+        references: {
+            model: 'retiros',
+            key: 'id',
+        },
+    },
+    comision_total: {
+        allowNull: false,
+        type: DataTypes.DECIMAL(10, 2),
+        defaultValue: 0,
+    },
     img_boleta: {
         allowNull: false,
         type: DataTypes.STRING,
