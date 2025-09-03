@@ -2,9 +2,20 @@ const TiendasRegistrosSolicitudesService = require('../services/tiendas_registro
 
 const service = new TiendasRegistrosSolicitudesService()
 
+const { sendWelcomeEmail } = require('../libs/mailjet');
+
 const create = async (req, res) => {
     try {
         const response = await service.create(req.body)
+
+        // Enviar correo
+        const { manager_name, email } = req.body;
+        const correoResult = await sendWelcomeEmail({
+            to: email,
+            name: manager_name,
+            solicitud: response,
+        });
+
         return res.status(201).json({
             success: true,
             code: 201,
