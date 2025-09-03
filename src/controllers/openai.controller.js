@@ -25,7 +25,7 @@ exports.procesarBoleta = async (req, res) => {
 
     try {
         const response = await openai.chat.completions.create({
-            model: 'gpt-4o',
+            model: 'gpt-4o-mini',
             temperature: 0, // Esto reduce la creatividad del modelo y lo fuerza a seguir instrucciones estrictas.
             messages: [
                 {

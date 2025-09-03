@@ -48,6 +48,8 @@ const BoletaSchema = {
             model: 'retiros',
             key: 'id',
         },
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
     },
     comision_total: {
         allowNull: false,

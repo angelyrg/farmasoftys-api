@@ -10,6 +10,7 @@ const {
 router
     .get('/', userController.get)
     .get('/oauth0', validateOAuthParams, userController.getByOAuth)
+    .get('/:id/retiros', userController.getRetirosByUserId)
     .get('/:id', userController.getById)
     .post('/register', validateCreateUser, userController.create)
     .put('/:id', userController.update)

@@ -1,6 +1,10 @@
 const UserService = require('../services/user.service')
+const RetiroService = require('../services/retiro.service')
+
+const { addStatusLabelToRetiro } = require('../utils/retiros.mapper')
 
 const service = new UserService()
+const retiroService = new RetiroService()
 
 const create = async (req, res) => {
     try {
@@ -109,6 +113,38 @@ const getByOAuth = async (req, res) => {
     }
 }
 
+const getRetirosByUserId = async (req, res) => {
+    try {
+        const { id } = req.params
+
+        const response = await retiroService.findByUserId(id)
+
+        if (!response || response.length === 0) {
+            return res.status(404).json({
+                success: false,
+                code: 404,
+                message: 'No se encontraron retiros para el usuario',
+            })
+        }
+
+        const mapped = response.map(addStatusLabelToRetiro)
+
+        return res.status(200).json({
+            success: true,
+            code: 200,
+            message: 'Retiros obtenidos correctamente',
+            data: mapped,
+        })
+    } catch (error) {
+        console.error('Error al obtener retiros del usuario:', error)
+        return res.status(500).json({
+            success: false,
+            code: 500,
+            message: 'Ha ocurrido un error en el servidor. Intente más tarde',
+        })
+    }
+}
+
 const update = async (req, res) => {
     try {
         const { id } = req.params
@@ -165,6 +201,7 @@ module.exports = {
     get,
     getById,
     getByOAuth,
+    getRetirosByUserId,
     update,
     _delete,
 }

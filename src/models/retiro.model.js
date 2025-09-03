@@ -1,5 +1,8 @@
 const { Model, DataTypes } = require('sequelize')
 
+const { RETIRO_STATUS } = require('../constants/retiro.constant')
+
+
 class Retiro extends Model {
     static config(sequelize) {
         return {
@@ -50,8 +53,8 @@ const RetiroSchema = {
     },
     payment_date: {
         type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
+        allowNull: true,
+        defaultValue: null,
     },
     paid_amount: {
         type: DataTypes.DECIMAL(10, 2),
@@ -65,7 +68,7 @@ const RetiroSchema = {
     status: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        defaultValue: 1,
+        defaultValue: RETIRO_STATUS.PENDIENTE,
     },
 }
 
