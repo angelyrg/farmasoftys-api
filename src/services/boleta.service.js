@@ -61,30 +61,20 @@ class BoletaService {
         return formattedBoleta
     }
 
-    // TODO: Obtener desde la tabla "retiros", pendientes de retirar
     async findTotalComision(user_id) {
-        const boletas = await models.Boleta.findAll({
-            where: { user_id: user_id },
-            include: [
-                {
-                    model: models.Product,
-                    as: 'products',
-                    through: {
-                        attributes: ['cantidad'],
-                    },
-                    attributes: ['comision'],
-                },
-            ],
+        const boletasSinRetirar = await models.Boleta.findAll({
+            where: {
+                user_id: user_id,
+                retiro_id: null,
+            },
         })
 
-        let totalComision = 0
+        let totalComision = 0;
 
-        for (const boleta of boletas) {
-            for (const product of boleta.products) {
-                const cantidad = product.BoletaProduct.cantidad
-                const comision = product.comision
-                totalComision += cantidad * comision
-            }
+        if (boletasSinRetirar.length > 0) {
+            totalComision = boletasSinRetirar.reduce((sum, boleta) => {
+                return sum + parseFloat(boleta.comision_total)
+            }, 0)
         }
 
         return parseFloat(totalComision.toFixed(2))
@@ -167,7 +157,40 @@ class BoletaService {
 
     async create(data) {
         const { products, ...boletaData } = data
-        const boleta = await models.Boleta.create(boletaData)
+
+        // Calcular total comision para la boleta
+        let totalComision = 0
+
+        const productIds = products.map(p => p.id)
+        const dbProducts = await models.Product.findAll({
+            where: {
+                id: {
+                    [Op.in]: productIds,
+                },
+            },
+        })
+
+        const productMap = {}
+        dbProducts.forEach(prod => {
+            productMap[prod.id] = prod
+        })
+
+        for (const product of products) {
+            const dbProduct = productMap[product.id]
+            if (!dbProduct) {
+                throw new Error(`Producto con ID ${product.id} no encontrado`)
+            }
+
+            const comisionUnidad = parseFloat(dbProduct.comision) || 0
+            const cantidad = parseInt(product.cantidad) || 0
+            totalComision += comisionUnidad * cantidad
+        }
+
+        // Crear la boleta
+        const boleta = await models.Boleta.create({
+            ...boletaData,
+            comision_total: totalComision,
+        })
 
         if (products && products.length > 0) {
             for (const product of products) {
