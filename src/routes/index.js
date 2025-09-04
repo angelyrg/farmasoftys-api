@@ -10,6 +10,7 @@ const newsCategoryRouter = require('./news_category.routes')
 const popupRouter = require('./popup.routes')
 const uploadsRouter = require('./uploads.routes')
 const tiendasRegistroSolicitudesRouter = require('./tiendas_registro_solicitudes.routes')
+const solicituresPublicRouter = require('./tiendas_registro_solicitudes_public.routes')
 const dashboardRouter = require('./dashboard.routes')
 const retiroRouter = require('./retiro.routes')
 const openIARouter = require('./openia.routes')
@@ -31,7 +32,8 @@ function routerApi(app) {
     router.use('/dashboard', dashboardRouter)
     router.use('/retiro', retiroRouter)
     router.use('/openia', openIARouter)
-
+    
+    router.use('/public/store-registration', solicituresPublicRouter)
 }
 
 module.exports = routerApi

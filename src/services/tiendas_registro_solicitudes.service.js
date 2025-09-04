@@ -13,6 +13,13 @@ class TiendasRegistrosSolicitudesService {
         return res
     }
 
+    async findbyUUID(uuid){
+        const res = await models.TiendasRegistrosSolicitudes.findOne({
+            where: { uuid },
+        })
+        return res
+    }
+
     async create(data) {
         const res = await models.TiendasRegistrosSolicitudes.create(data)
         return res
@@ -31,6 +38,12 @@ class TiendasRegistrosSolicitudesService {
         }
         const res = await model.destroy()
         return res
+    }
+
+    async updateByUUID(uuid, data) {
+        const model = await this.findbyUUID(uuid)
+        if (!model) return null
+        return await model.update(data)
     }
 }
 

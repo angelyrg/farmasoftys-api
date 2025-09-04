@@ -1,5 +1,7 @@
 const { Model, DataTypes } = require('sequelize')
 
+const { TIENDA_REGISTRO_STATUS } = require('../constants/tienda_registros.constant')
+
 class TiendasRegistrosSolicitudes extends Model {
     static config(sequelize) {
         return {
@@ -16,6 +18,12 @@ const TiendasRegistroSolicitudesSchema = {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
+    },
+     uuid: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+        unique: true,
     },
     name: {
         type: DataTypes.STRING(255),
@@ -44,7 +52,7 @@ const TiendasRegistroSolicitudesSchema = {
     status: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        defaultValue: 1,
+        defaultValue: TIENDA_REGISTRO_STATUS.CREADA,
     },
 }
 
