@@ -3,6 +3,7 @@ const TiendasRegistrosSolicitudesService = require('../services/tiendas_registro
 const service = new TiendasRegistrosSolicitudesService()
 
 const { sendWelcomeEmail } = require('../libs/mailjet');
+const logger = require('../utils/logger')
 
 const create = async (req, res) => {
     try {
@@ -13,8 +14,8 @@ const create = async (req, res) => {
         const correoResult = await sendWelcomeEmail({
             to: email,
             name: manager_name,
-            solicitud: response,
-        });
+            solicitud: req.body,
+        })
 
         return res.status(201).json({
             success: true,
@@ -23,7 +24,7 @@ const create = async (req, res) => {
             data: response,
         })
     } catch (error) {
-        console.error('Error al crear el registro:', error)
+        logger.error(`Error al crear el registro de solicitud de tienda: ${error}`)
         return res.status(500).json({
             success: false,
             code: 500,
