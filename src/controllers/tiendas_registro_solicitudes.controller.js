@@ -13,11 +13,12 @@ const create = async (req, res) => {
         const response = await service.create(req.body)
 
         // Enviar correo
+        const plainDataSolicitud = response.toJSON()
         const { manager_name, email } = req.body
         const correoResult = await sendWelcomeEmail({
             to: email,
             name: manager_name,
-            solicitud: response.data,
+            solicitud: plainDataSolicitud,
         })
 
         return res.status(201).json({
