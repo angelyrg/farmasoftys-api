@@ -1,5 +1,5 @@
 const fs = require('fs')
-
+const logger = require('../utils/logger')
 const CloudinaryService = require('../services/cloudinary.service')
 const service = new CloudinaryService()
 
@@ -31,7 +31,12 @@ const uploadImageController = async (req, res) => {
         })
     } catch (error) {
         fs.unlinkSync(req.file.path)
-        console.error('Error al subir la imagen:', error)
+        logger.error(`Error al subir la imagen a cloudinary: ${JSON.stringify({
+            message: error.message,
+            name: error.name,
+            stack: error.stack,
+            cloudinaryError: error.error?.message || null,
+        })}`);
         return res.status(500).json({
             success: false,
             code: 500,

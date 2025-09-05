@@ -1,3 +1,4 @@
+const logger = require('../utils/logger')
 const BoletaService = require('../services/boleta.service')
 
 const service = new BoletaService()
@@ -21,7 +22,7 @@ const create = async (req, res) => {
             data: response,
         })
     } catch (error) {
-        console.error('Error al crear la boleta:', error)
+        logger.error(`Error al crear boleta: ${error}`)
         return res.status(500).json({
             success: false,
             code: 500,
