@@ -165,7 +165,7 @@ const getByUUID = async (req, res) => {
             return res.status(410).json({
                 success: false,
                 code: 410,
-                message: 'Esta solicitud ya ha sido procesada.',
+                message: 'Esta solicitud ya ha sido procesada anteriormente.',
             })
         }
 
@@ -177,6 +177,9 @@ const getByUUID = async (req, res) => {
             email: solicitud.email,
             ruc: solicitud.ruc,
             uuid: solicitud.uuid,
+            fecha: new Date(solicitud.createdAt).toLocaleString('es-PE', {
+                timeZone: 'America/Lima',
+            }),
         }
 
         return res.status(200).json({
