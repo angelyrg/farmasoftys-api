@@ -45,7 +45,7 @@ async function sendWelcomeEmail({ to, name, solicitud }) {
                                         <h3 style="margin-top: 30px;">🛍️ Información de la tienda</h3>
 
                                         <ul style="padding-left: 20px; line-height: 1.5;">
-                                            <li><strong>Nombre:</strong> ${name}</li>
+                                            <li><strong>Nombre:</strong> ${solicitud.name}</li>
                                             <li><strong>Dirección:</strong> ${solicitud.address}</li>
                                             <li><strong>RUC:</strong> ${solicitud.ruc}</li>
                                             <li><strong>Teléfono:</strong> ${solicitud.phone}</li>
